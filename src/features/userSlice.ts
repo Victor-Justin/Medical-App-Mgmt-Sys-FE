@@ -6,9 +6,11 @@ type User = {
   last_name: string;
   email: string;
   role: string;
+  docId?: number;
 };
 
 type UserState = {
+  docId: any;
   token: string | null;
   user: User | null;
 };
@@ -22,9 +24,13 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<{ token: string; user: User }>) => {
+    setCredentials: (state, action: PayloadAction<{ token: string; user: any }>) => {
+      const user = {
+        ...action.payload.user,
+        docId: action.payload.user.doc_id, // Normalize snake_case to camelCase
+      };
       state.token = action.payload.token;
-      state.user = action.payload.user;
+      state.user = user;
     },
     clearCredentials: (state) => {
       state.token = null;

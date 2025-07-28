@@ -40,7 +40,7 @@ const LoginPage = () => {
       } else if (user.role === "doctor") {
         navigate("/doctor/dashboard");
       } else {
-        navigate("/patient/dashboard");
+        navigate("/user/dashboard");
       }
     } catch (err: any) {
       setMessage(err.response?.data?.message || "Invalid email or password.");
